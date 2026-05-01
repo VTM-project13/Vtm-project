@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<div id="VTM_PORTAL_TOTAL">
+<style>
+/* DISEÑO BASE */
+#VTM_PORTAL_TOTAL {
+    background: #000 !important;
+    color: #fff !important;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+}
+.vtm-card {
+    background: #0a0a0a;
+    border: 3px solid #ff0000;
+    border-radius: 30px;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.7);
+}
+
+.vtm-timer-v100 {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 24px;
+    border: 2px solid #ff000066;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    background: rgba(255,0,0,0.15);
+    font-family: monospace;
+    text-shadow: 0 0 10px #f00;
+}
+
+.btn-buy-v100 {
+    width: 100%;
+    padding: 22px;
+    border-radius: 18px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 19px;
+    background: linear-gradient(90deg, #ff0000, #800);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    margin-bottom: 30px;
+    transition: 0.3s;
+}
+
+.btn-sec-v100 {
+    width: 100%;
+    padding: 15px;
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.vtm-input-v100 {
+    width: 100%;
+    padding: 18px;
+    background: #000;
+    border: 2px solid #ffcc00;
+    color: #fff;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+#vtm-toast-gigante {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid #ff0000;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-size: 14px;
+    z-index: 999999;
+    display: none;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    text-align: center;
+    min-width: 300px;
+}
+
+.res-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #222;
+    font-family: monospace;
+}
+
+.setedit-box {
+    background: #111;
+    border: 1px dashed #ffcc00;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 13px;
+    text-align: left;
+    color: #ffcc00;
+}
+</style>
+
+<div id="vtm-toast-gigante"></div>
+
+<div class="vtm-card">
+    <div style="display:flex; justify-content:space-between; font-size:11px; color:#555; margin-bottom:20px;">
+        <span>VTM-OFFICIAL v16.8</span>
+        <span style="color:#0f0;">ONLINE: <span id="val-on">1,524</span> ●</span>
+    </div>
+
+    <div class="vtm-timer-v100">⏳ EXPIRA EN: <span id="vtm-clock">04:59</span></div>
+
+    <h1 style="color:#ff0000; margin:0; text-shadow: 0 0 15px #f00; font-size:32px;">VTM PROJECT 👹</h1>
+    
+    <div id="STEP_1">
+        <p style="font-size:12px; color:#777; margin-bottom:25px;">ZONA VIP MONETIZADA</p>
+        
+        <button class="btn-buy-v100" onclick="vtm_link('wa')">COMPRAR SENSI VIP (AirTM) 💸</button>
+
+        <div style="border-top: 2px solid #222; padding-top:25px;">
+            <p style="font-size:12px; color:#ffcc00; margin-bottom:12px; font-weight:bold;">ACCESO CON CONTRASEÑA VIP</p>
+            <input type="text" id="vtm-pass" class="vtm-input-v100" placeholder="ESCRIBE LA CLAVE AQUÍ">
+            <button class="btn-sec-v100" onclick="vtm_login()">ENTRAR AL PANEL</button>
+        </div>
+    </div>
+
+    <div id="STEP_2" style="display:none;">
+        <p style="color:#0f0; font-weight:bold; margin-top:10px;">ACCESO CONCEDIDO ✅</p>
+        <input type="text" class="vtm-input-v100" placeholder="MODELO DEL MÓVIL">
+        <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <button class="btn-sec-v100" onclick="vtm_pre(100, 440)">BAJA</button>
+            <button class="btn-sec-v100" onclick="vtm_pre(150, 520)">MEDIA</button>
+            <button class="btn-sec-v100" onclick="vtm_pre(200, 800)">ALTA</button>
+        </div>
+        <button id="btn-run" class="btn-buy-v100" style="display:none;" onclick="vtm_run()">GENERAR SENSI 👹</button>
+        <div id="vtm-loader" style="display:none; margin-top:20px;">
+            <div style="width:100%; background:#111; height:15px; border-radius:10px;">
+                <div id="vtm-bar" style="width:0%; height:100%; background:#f00; border-radius:10px;"></div>
+            </div>
+            <p style="font-size:12px; color:#f00; margin-top:10px;">INYECTANDO SCRIPTS...</p>
+        </div>
+    </div>
+
+    <div id="STEP_3" style="display:none;">
+        <button class="btn-buy-v100" style="background:#fff; color:#000; margin-bottom:15px;" onclick="vConfirmFollow()">1. SEGUIR EN TIKTOK PARA ACTIVAR 📱</button>
+        
+        <div id="vtm-res-area" style="display:none; text-align:left;">
+            <h3 style="color:#0f0; text-align:center;">CONFIGURACIÓN LISTA ✅</h3>
+            <div id="vtm-res" style="background:#000; padding:20px; border:2px solid #0f0; border-radius:20px; margin-bottom:20px;"></div>
+            
+            <hr style="border:1px solid #222; margin:20px 0;">
+            <button class="btn-buy-v100" onclick="vtm_link('setedit')">DESCARGAR SETEDIT 📥</button>
+            
+            <div class="setedit-box">
+                <b>CÓDIGOS VIP (System Table):</b><br>
+                > touch.size.calibration = "geometric"<br>
+                > touch.pressure.scale = "0.001"<br>
+                > persist.sys.scrolling_cache = "3"
+            </div>
+            <p style="font-size:11px; color:#777; text-align:center;">¿Dudas con el pago o la configuración?</p>
+            <button class="btn-sec-v100" style="border-color:#25D366; color:#25D366;" onclick="vtm_link('wa')">SOPORTE POR WHATSAPP 👹</button>
+        </div>
+    </div>
+</div>
+
+<script>
+var v_secs = 299;
+var v_Max, v_D;
+
+// --- CONFIGURACIÓN DE TU CONTACTO ---
+var MI_NUMERO = "526562131952"; 
+var TXT = encodeURIComponent("¡Hola VTM! 👹 Vengo de la página y quiero comprar la SENSI VIP por AirTM 💸");
+
+function vtm_init() {
+    setInterval(function() {
+        var m = Math.floor(v_secs / 60), s = v_secs % 60;
+        document.getElementById('vtm-clock').innerHTML = (m < 10 ? '0' : '') + m + ":" + (s < 10 ? '0' : '') + s;
+        if (v_secs > 0) v_secs--;
+    }, 1000);
+
+    var users = ["Kevin_FF", "Santy_VTM", "Mafi_VIP", "Zero_YT", "Toxico_Pay", "Nando_VTM"];
+    var devices = ["iPhone 13 Pro", "Poco X3 Pro", "Samsung S21", "iPhone 15 Ultra", "Redmi Note 12"];
+
+    setInterval(function() {
+        var u = users[Math.floor(Math.random()*users.length)];
+        var d = devices[Math.floor(Math.random()*devices.length)];
+        var t = document.getElementById('vtm-toast-gigante');
+        t.innerHTML = "💎 <b>" + u + "</b> compró la VIP para <b>" + d + "</b>";
+        t.style.display = "block";
+        setTimeout(function(){ t.style.display = "none"; }, 5000);
+    }, 12000);
+}
+
+function vtm_login() {
+    // Clave actual: VTM-project$ (Cámbiala aquí cuando quieras)
+    if(document.getElementById('vtm-pass').value === "VTM-project$") {
+        document.getElementById('STEP_1').style.display = "none";
+        document.getElementById('STEP_2').style.display = "block";
+    } else { alert("PASSWORD VIP INCORRECTO ❌ Manda mensaje para comprar la clave"); }
+}
+
+function vtm_pre(max, dpi) {
+    v_Max = max; v_D = dpi;
+    document.getElementById('btn-run').style.display = "block";
+}
+
+function vtm_run() {
+    document.getElementById('btn-run').style.display = "none";
+    document.getElementById('vtm-loader').style.display = "block";
+    var w = 0;
+    var iv = setInterval(function() {
+        w += 10; document.getElementById('vtm-bar').style.width = w + "%";
+        if(w >= 100) {
+            clearInterval(iv);
+            document.getElementById('STEP_2').style.display = "none";
+            document.getElementById('STEP_3').style.display = "block";
+            
+            var gen = Math.floor(Math.random() * (v_Max - (v_Max-15) + 1)) + (v_Max-15);
+            document.getElementById('vtm-res').innerHTML = 
+                "<div class='res-line'><span>GENERAL:</span><span style='color:#0f0;'>" + gen + "%</span></div>" +
+                "<div class='res-line'><span>PUNTO ROJO:</span><span style='color:#0f0;'>" + Math.floor(gen * 0.98) + "%</span></div>" +
+                "<div class='res-line'><span>MIRA 2X:</span><span style='color:#0f0;'>" + Math.floor(gen * 0.95) + "%</span></div>" +
+                "<div class='res-line'><span>MIRA 4X:</span><span style='color:#0f0;'>" + Math.floor(gen * 0.92) + "%</span></div>" +
+                "<div class='res-line'><span>DPI:</span><span style='color:#ffcc00;'>" + v_D + "</span></div>" +
+                "<div class='res-line'><span>BOTÓN:</span><span style='color:#ffcc00;'>44%</span></div>";
+        }
+    }, 150);
+}
+
+function vConfirmFollow() {
+    vtm_link('tk');
+    setTimeout(function() {
+        document.getElementById('vtm-res-area').style.display = "block";
+        alert("✅ ACTIVADO: Ya puedes ver la Sensi y los códigos SetEdit");
+    }, 2500);
+}
+
+function vtm_link(type) {
+    var url = "";
+    if (type === 'wa') url = "https://wa.me/" + MI_NUMERO + "?text=" + TXT;
+    if (type === 'tk') url = "https://www.tiktok.com/@vttm_face13";
+    if (type === 'setedit') url = "https://play.google.com/store/apps/details?id=by4a.setedit22";
+    window.open(url, '_blank');
+}
+
+vtm_init();
+setInterval(function(){ document.getElementById('val-on').innerHTML = 1450 + Math.floor(Math.random()*150); }, 3000);
+</script>
+              </div>
+              
